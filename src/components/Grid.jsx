@@ -35,6 +35,7 @@ export default class Grid extends Component {
     return (
       <div>
         {gridItems.map(rowItem => {
+          console.log(this.state.drawing) 
           return <div className="GridRow">{rowItem}</div>;
         })}
       </div>
