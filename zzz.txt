@@ -1,0 +1,15 @@
+* Salvar dados do cronometro e dos pixels em um 'back' {
+    validar BD
+    valid JSON.server 
+    Validar Mira
+}
+
+* Adicionar autenticação por token para que quem não for admin, não
+possa adcionar algo ao pixel, só visualizar
+
+* Transformar visualização de pixels de base para 1mi
+
+* Revisar cronometro, deixar tempo inicial voluntário e somente admin
+
+* Trocar pixels_colors por pixels_images, onde o admin possa subir 
+uma imagem para colocar em um pixel

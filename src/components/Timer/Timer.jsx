@@ -13,11 +13,17 @@ export function MyTimer({ expiryTimestamp }) {
     resume,
     restart,
   } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+  
 
+  // const x = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+  // console.log('hours')
+  // x.hours = 7
+  // console.log(x)
+ 
 
   return (
-    <div style={{textAlign: 'center'}}>
-      <h1 className="Subtext">O Tempo está acabando! </h1>
+    <div style={{textAlign: 'center', backgroundColor: 'red', marginBottom: 65}}>
+      <h1 >O Tempo está acabando! </h1>
 
       <div style={{fontSize: '100px'}}>
         <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
