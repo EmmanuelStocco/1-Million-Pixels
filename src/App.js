@@ -12,9 +12,9 @@ class App extends Component {
         <MyTimer />
 
 
-        {/* <div>Guerra Pixels </div>
+        <div>Guerra Pixels </div>
         <div className="Subtext">Click em um pixel para adicionar cor</div>
-        <Grid /> */}
+        <Grid />
       </div>
     );
   }

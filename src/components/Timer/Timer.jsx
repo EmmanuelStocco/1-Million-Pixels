@@ -4,34 +4,19 @@ import { useTimer } from 'react-timer-hook';
 
 export function MyTimer({ expiryTimestamp }) {
   let allUseTime = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
-
+  console.log(allUseTime)
   const [second, setSecond] = useState(0);
-  const [minute, setMinute] = useState(0);
-  const [hour, setHour] = useState(0);
-  const [day, setDay] = useState(0);
-
-  useEffect(() => {
-    allUseTime.seconds = second;
-    allUseTime.minutes = minute;
-    allUseTime.hours = hour;
-    allUseTime.days = day;
-
-    console.log(allUseTime);
-  }, [second, minute, hour, day])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-
-    setSecond(data.date_seconds)
-    setMinute(data.date_mins)
-    setHour(data.date_hours)
-    setDay(data.date_days)
-
-    alert('enviando data')
-
+    const time = new Date();
+    time.setSeconds(time.getSeconds() + data.date_seconds);
+    allUseTime.restart(time)
   };
+
+
 
   return (
     <>
@@ -44,13 +29,6 @@ export function MyTimer({ expiryTimestamp }) {
           </div>
           <div>
             <input type='number' name='date_seconds' placeholder='segundos finais' />
-
-            <input type='number' name='date_mins' placeholder='minutos finais' />
-
-            <input type='number' name='date_hours' placeholder='horas finais' />
-
-            <input type='number' name='date_days' placeholder='dias finais' />
-
             <button type='submit'>Enviar</button>
           </div>
         </form>
@@ -67,13 +45,11 @@ export function MyTimer({ expiryTimestamp }) {
         <button onClick={allUseTime.pause}>Pause</button>
         <button onClick={allUseTime.resume}>Resume</button>
         <button onClick={() => {
-          // Restarts to 5 minutes timer
           const time = new Date();
           time.setSeconds(time.getSeconds() + 300);
           allUseTime.restart(time)
         }}>Restart</button>
       </div>
     </>
-
   );
 }
