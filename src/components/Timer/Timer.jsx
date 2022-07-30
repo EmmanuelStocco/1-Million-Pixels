@@ -3,75 +3,74 @@ import { useState } from 'react';
 import { useTimer } from 'react-timer-hook';
 
 export function MyTimer({ expiryTimestamp }) {
-  const {
-    seconds,
-    minutes,
-    hours,
-    days,
-    isRunning,
-    start,
-    pause,
-    resume,
-    restart,
-  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
-  // const x = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
-  // console.log('hours')
-  // x.hours = 7
-  // console.log(x)
+  let allUseTime = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
-  const [time, setTime] = useState(0);
+  const [second, setSecond] = useState(0);
+  const [minute, setMinute] = useState(0);
+  const [hour, setHour] = useState(0);
+  const [day, setDay] = useState(0);
+
+  useEffect(() => {
+    allUseTime.seconds = second;
+    allUseTime.minutes = minute;
+    allUseTime.hours = hour;
+    allUseTime.days = day;
+
+    console.log(allUseTime);
+  }, [second, minute, hour, day])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
 
-    console.log('handle submit', data);
-    //setTime(data)
-  }
+    setSecond(data.date_seconds)
+    setMinute(data.date_mins)
+    setHour(data.date_hours)
+    setDay(data.date_days)
+
+    alert('enviando data')
+
+  };
 
   return (
     <>
+      <div style={{ textAlign: 'center', backgroundColor: 'red', marginBottom: 65, width: 800, height: 200 }}>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <h6>
+              Indique o tempo para finalizar a promoção:
+            </h6>
+          </div>
+          <div>
+            <input type='number' name='date_seconds' placeholder='segundos finais' />
 
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <h6>
-            Indique o tempo para finalizar a promoção:
-          </h6>
-        </div>
-        <div>
-          <input type='number' name='date_seconds' placeholder='segundos finais' />
+            <input type='number' name='date_mins' placeholder='minutos finais' />
 
-          <input type='number' name='date_mins' placeholder='minutos finais' />
+            <input type='number' name='date_hours' placeholder='horas finais' />
 
-          <input type='number' name='date_hours' placeholder='horas finais' />
+            <input type='number' name='date_days' placeholder='dias finais' />
 
-          <input type='number' name='date_days' placeholder='dias finais' />
-
-          <button type='submit'>Enviar</button>
-        </div>
-      </form>
-    </div>
+            <button type='submit'>Enviar</button>
+          </div>
+        </form>
+      </div>
 
       <div style={{ textAlign: 'center', backgroundColor: 'blue', marginBottom: 65, width: 800, height: 300 }}>
-
-
-
         <p id="log"></p>
 
         <div style={{ fontSize: '100px' }}>
-          <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+          <span>{allUseTime.days}</span>:<span>{allUseTime.hours}</span>:<span>{allUseTime.minutes}</span>:<span>{allUseTime.seconds}</span>
         </div>
-        <p>{isRunning ? 'Contando' : 'Não contando'}</p>
-        <button onClick={start}>Start</button>
-        <button onClick={pause}>Pause</button>
-        <button onClick={resume}>Resume</button>
+        <p>{allUseTime.isRunning ? 'Contando' : 'Não contando'}</p>
+        <button onClick={allUseTime.start}>Start</button>
+        <button onClick={allUseTime.pause}>Pause</button>
+        <button onClick={allUseTime.resume}>Resume</button>
         <button onClick={() => {
           // Restarts to 5 minutes timer
           const time = new Date();
           time.setSeconds(time.getSeconds() + 300);
-          restart(time)
+          allUseTime.restart(time)
         }}>Restart</button>
       </div>
     </>

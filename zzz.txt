@@ -13,3 +13,7 @@ possa adcionar algo ao pixel, só visualizar
 
 * Trocar pixels_colors por pixels_images, onde o admin possa subir 
 uma imagem para colocar em um pixel
+
+* Adicionar input com event para dados do cronometro
+
+* converter jsx para tsx
